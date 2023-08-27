@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load static %}
+
+<!-- meta description -->
+
+{% block metadescription %}
+
+{{ product.description|truncatewords:150 }}
+
+{% endblock %}
+
+<!-- title -->
+
+{% block title %}
+
+{% if category %}
+    {{product.name}} - ABC Tech
+
+{% endif %}
+
+{% endblock %}
+
+<!-- content -->
+{% block content %}
+
+<p><a href="{% url 'ecommerceapp:allProdCat'%}">Home</a></p>
+<p><a href="{{product.category.get_url}}">{{product.category}}</a></p>
+
+<p style="text-align: center; text-transform: uppercase;"><b>{{product.name}}</b></p>
+
+<div class="container">
+    <div class="product-image">
+        <img src="{{product.image.url}}" alt="{{product.name}}" width='600'>
+    </div>
+
+    <div class="product-details">
+        <p>Product: {{product.name}}</p>
+        <p>Price: {{product.price}}</p>
+        <p>Details: {{product.description}}</p>
+        {% if product.stock <= 0 %}
+            <p><b>Out of Stock</b></p>
+        {% else %}
+            <a href="{% url 'cart:add_items' product.id%}" class="btn btn-secondary">Add To Cart</a>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

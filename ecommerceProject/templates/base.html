@@ -1,0 +1,28 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="{% block metadescription %} {% endblock %}">
+    <title>{% block title %} {% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/custom.css' %}">  
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@1,300&display=swap" rel="stylesheet">
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>  -->
+    <!-- icon-->
+    <script src="https://kit.fontawesome.com/cd0a4e4708.js" crossorigin="anonymous"></script>
+
+</head>
+<body>
+    <div>
+        {% include 'header.html' %}
+        {% include 'navbar.html' %}
+        {% block content %}
+        {% endblock %}
+        {% include 'footer.html' %}
+    </div>
+
+</body>
+</html>

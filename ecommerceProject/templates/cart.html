@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+{% load static %}
+
+<!-- meta description -->
+{% block metadescription %}
+    Your Cart
+{% endblock %}
+
+<!-- title -->
+{% block title %}
+    See our new products - ABC Tech
+{% endblock %}
+
+<!-- content -->
+{% block content %}
+{% if not cart_items %}
+<div class="container mt-5">
+    <div class="text-center">
+        <h1 class="title">Your Cart</h1>
+        <p>Please click <a href="{% url 'ecommerceapp:allProdCat' %}">shop</a> to continue shopping</p>
+    </div>
+</div>
+{% else %}
+<div class="container mt-5">
+    <div class="text-center">
+        <h1>Your Cart</h1>
+    </div>
+
+    <div class="row justify-content-center mt-4">
+        <div class="col-lg-6">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th colspan="5">Your Items</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for cart_item in cart_items %}
+                    <tr>
+                        <td>
+                            <a href="{{ cart_item.product.get_absolute_url }}">
+                                <img src="{{ cart_item.product.image.url }}" alt="Product Image" class="rounded custom_image" style="width: 100px; height: 100px;">
+                            </a>
+                        </td>
+                        <td class="text-left">
+                            {{ cart_item.product.name }}<br>
+                            SKU: {{ cart_item.product.id }}<br>
+                            Price: {{ cart_item.product.price }}<br>                            
+                            Qty: {{ cart_item.quantity }} x $ {{ cart_item }}
+                        </td>
+                        <td>
+                            {{ cart_item.subTotal }}
+                        </td>
+                        {% if cart_item.quantity < cart_item.product.stock %}
+                        <td>
+                            <a href="{% url 'cart:add_items' cart_item.product.id %}" class="custom_a"><i class="fa fa-plus"></i></a>
+                            &nbsp;<a href="{% url 'cart:remove_items' cart_item.product.id %}" class="custom_a"><i class="fa fa-minus"></i></a>
+                            &nbsp;<a href="{% url 'cart:delete_items' cart_item.product.id %}" class="custom_icon"><i class="fa fa-trash"></i></a>
+                        </td>
+                        {% else %}
+                        <td>
+                            &nbsp;<a href="{% url 'cart:remove_items' cart_item.product.id %}" class="custom_a"><i class="fa fa-minus"></i></a>
+                            &nbsp;<a href="{% url 'cart:delete_items' cart_item.product.id %}" class="custom_icon"><i class="fa fa-trash"></i></a>
+                        </td>
+                        {% endif %}
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+<div class="container mt-5">
+    <div class="text-center">
+        <table class="table">
+            <thead class="thead">
+                <tr>
+                    <th>Checkout</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Please review the items before proceeding with order payment</td>
+                </tr>
+                <tr>
+                    <td>Your total is: <strong>{{total}}</strong></td>
+                </tr>
+            </tbody>
+        </table>
+        <div>
+            <a href="" class="btn btn-block btn-secondary custom_btn">Continue shopping</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
