@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% block body %}
+
+<style>
+    body {
+        background-color: #e5e5f7;
+        opacity: 1;
+        background-image:  repeating-radial-gradient( circle at 0 0, transparent 0, 
+                                        #e5e5f7 10px ), repeating-linear-gradient( #444cf755, #444cf7 );
+    }
+</style>
+
+
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="banner">
+                <div class="banner-title">
+                    <h1>ToDo</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class='container'>
+    <div class='row'>
+        <div class='col-md-6'>
+            <!-- Form content -->
+            <div class='form-control'>
+                <form method='post'>
+                    {% csrf_token %}
+                    <div class='form-group'>
+                        <input type='text' name='name' class='form-control' placeholder='Enter TaskName'>
+                    </div>
+                    <div class='form-group'>
+                        <input type='text' name='priority' class='form-control' placeholder='Enter Priority'>
+                    </div>
+                    
+                    <div class="form-group">
+                        <input type="date" name=date class="form-control">
+                    </div>
+                    <br>
+                    <div class='form-group'>
+                        <input type='submit' class='btn btn-success'>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class='col-md-6'>
+            {% for i in task1 %}
+            <div class="shadow card">
+                <div class="card-body">
+                    <div class="card-title">{{ i.name }}</div>
+                    <p><b>{{ i.priority }}</b></p>
+                    <p><b>{{ i.date }}</b></p>
+                    <a class = 'btn btn-danger'href="{% url 'confirm_delete' i.id %}">Delete</a>
+                    <a class = 'btn btn-success' href="{% url 'update' i.id %}">Update</a>
+
+                </div>
+            </div>
+            <br>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

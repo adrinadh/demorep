@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+<style>
+    body {
+        background-color: #e5e5f7;
+        opacity: 1;
+        background-image: linear-gradient(-45deg, #e5e5f7, #e5e5f7 50%, #4548f7 50%, #4548f7);
+        background-size: 10px 10px;
+    }
+</style>
+
+<div class='container-fluid' style="margin-top: 10%;">
+    <form method="post" class="form-control">
+        {% csrf_token %}
+        <button type="submit" style="display: block; margin-left: 40%;">Confirm</button>
+    </form>
+</div>
+
+{% endblock %}
